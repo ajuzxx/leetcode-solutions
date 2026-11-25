@@ -1,22 +1,30 @@
 class Solution(object):
-    def sortColors(self, nums):
-        left = 0
-        right = len(nums) - 1
-        current =0
+    def threeSum(self, nums):
+        n = len(nums) - 1
+        nums.sort()
+        result= []
 
-        while current<= right:
-            if nums[current]==0:
+        for i in range(0,n-1):
+            if i>=1 and nums[i] == nums[i-1]:
+                continue
+            left = i+1
+            right = n
+            while left < right:
+                total = nums[i] + nums[left] + nums[right]
+                if total > 0:
+                    right -=1
+                elif total < 0:
+                    left +=1
+                elif total == 0:
+                    result.append([nums[i],nums[left],nums[right]])
+                    while left < right and nums[left] == nums[left  + 1]:
+                        left+=1
+                    left+=1
+                    while left < right and nums[right] == nums[right - 1] :
+                        right -=1
+                    right -=1
+        return result
 
-                nums[left],nums[current] = nums[current],nums[left]
-                current+=1
-                left+=1
-            elif nums[current]==2:
-                nums[right],nums[current] = nums[current],nums[right]
-                right-=1
-            else :
-                current+=1
-        return nums
+
 
         
-        
-
